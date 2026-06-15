@@ -1,22 +1,18 @@
-# Étape 3 — une ressource conteneur basée sur Ubuntu OU Arch.
+# Étape 4 — ressource déplacée dans son fichier dédié, alimentée par variables.
 locals {
-  # Catalogue des images autorisées (clé = nom d'OS demandé par l'utilisateur).
   images = {
     ubuntu = docker_image.ubuntu.image_id
     arch   = docker_image.arch.image_id
   }
-
-  selected_os = "ubuntu" # OS demandé (sera paramétré à l'étape 4)
 }
 
 resource "docker_container" "instance" {
-  name = "instance-${local.selected_os}"
+  name  = "instance-${var.os}"
+  image = lookup(local.images, var.os) # échoue si OS/image indisponible
 
-  # lookup() SANS valeur par défaut : si l'OS demandé n'existe pas dans le
-  # catalogue, Terraform ÉCHOUE -> "faire échouer la demande de ressources".
-  # De plus, si l'image n'est pas disponible au pull, docker_image échoue aussi.
-  image = lookup(local.images, local.selected_os)
+  cpu_shares = var.cpu_max # cpu_max -> poids CPU relatif
+  memory     = var.mem_max # mem_max -> limite mémoire (Mo)
 
-  command = ["sleep", "infinity"] # garder le conteneur actif
+  command  = ["sleep", "infinity"]
   must_run = true
 }
