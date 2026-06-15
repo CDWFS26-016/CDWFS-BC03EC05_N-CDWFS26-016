@@ -10,6 +10,7 @@ Offre cloud Terraform / Docker — épreuve BC03EC05.
 - `rds.tf` — bases Postgres / MariaDB (sans persistance)
 - `setup.sh` — script de création / suppression d'instances
 - `REPONSES.md` — réponses au questionnaire
+- `RAPPORT.md` — rapport technique qui illustre et justifie toutes les étapes
 - `schema_architecture.png`, `schema_prometheus.png` — schémas (Q1, Q8)
 
 ## Utilisation rapide
