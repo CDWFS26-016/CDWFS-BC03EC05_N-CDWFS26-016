@@ -34,17 +34,26 @@ create_db() {
   apply
 }
 
+delete_resource() {
+  echo "Ressources actuellement gérées :"
+  terraform state list || true
+  read -rp 'Adresse à supprimer (ex: docker_container.instance["vm1"]) : ' addr
+  [ -n "$addr" ] && terraform destroy -target="$addr" -auto-approve
+}
+
 while true; do
   echo
   echo "=== Offre cloud ==="
   echo "1) Créer une VM"
   echo "2) Créer une base de données"
-  echo "3) Quitter"
+  echo "3) Supprimer une ressource"
+  echo "4) Quitter"
   read -rp "Choix : " choice
   case "$choice" in
     1) create_vm ;;
     2) create_db ;;
-    3) exit 0 ;;
+    3) delete_resource ;;
+    4) exit 0 ;;
     *) echo "Choix invalide." ;;
   esac
 done
