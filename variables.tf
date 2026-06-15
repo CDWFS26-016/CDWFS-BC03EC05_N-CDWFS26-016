@@ -27,3 +27,28 @@ variable "ssh_public_key" {
   description = "Clé publique SSH déposée dans authorized_keys"
   default     = ""
 }
+
+variable "rds_enabled" {
+  type        = bool
+  description = "Active la création d'une instance de base de données"
+  default     = false
+}
+
+variable "rds_engine" {
+  type        = string
+  description = "Moteur de base de données : postgres ou mariadb"
+  default     = "postgres"
+}
+
+variable "rds_username" {
+  type        = string
+  description = "Nom d'utilisateur de la base"
+  default     = "admin"
+}
+
+variable "rds_password" {
+  type        = string
+  description = "Mot de passe de la base"
+  default     = "changeme"
+  sensitive   = true
+}
