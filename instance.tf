@@ -1,4 +1,4 @@
-# Étape 4 — ressource déplacée dans son fichier dédié, alimentée par variables.
+# Étape 5 — for_each sur la map d'instances.
 locals {
   images = {
     ubuntu = docker_image.ubuntu.image_id
@@ -7,11 +7,13 @@ locals {
 }
 
 resource "docker_container" "instance" {
-  name  = "instance-${var.os}"
-  image = lookup(local.images, var.os) # échoue si OS/image indisponible
+  for_each = var.instances
 
-  cpu_shares = var.cpu_max # cpu_max -> poids CPU relatif
-  memory     = var.mem_max # mem_max -> limite mémoire (Mo)
+  name  = "instance-${each.key}"
+  image = lookup(local.images, each.value.os) # échoue si OS/image indisponible
+
+  cpu_shares = each.value.cpu_max
+  memory     = each.value.mem_max
 
   command  = ["sleep", "infinity"]
   must_run = true

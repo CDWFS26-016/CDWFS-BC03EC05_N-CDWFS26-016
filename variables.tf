@@ -1,14 +1,10 @@
-variable "os" {
-  type        = string
-  description = "OS demandé : ubuntu ou arch"
-}
-
-variable "cpu_max" {
-  type        = number
-  description = "Poids CPU relatif (cpu_shares) alloué au conteneur"
-}
-
-variable "mem_max" {
-  type        = number
-  description = "Limite mémoire du conteneur, en Mo"
+# Étape 5 — une MAP d'instances pour gérer N créations sur le même modèle.
+variable "instances" {
+  description = "Instances à créer, indexées par un identifiant unique."
+  type = map(object({
+    os      = string
+    cpu_max = number
+    mem_max = number
+  }))
+  default = {}
 }
