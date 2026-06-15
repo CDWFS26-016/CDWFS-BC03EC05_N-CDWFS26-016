@@ -8,3 +8,9 @@ variable "instances" {
   }))
   default = {}
 }
+
+variable "ssh_public_key" {
+  type        = string
+  description = "Clé publique SSH déposée dans authorized_keys de l'image Ubuntu"
+  default     = ""
+}
