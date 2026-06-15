@@ -9,8 +9,21 @@ variable "instances" {
   default = {}
 }
 
+variable "ssh_user" {
+  type        = string
+  description = "Nom d'utilisateur SSH par défaut"
+  default     = "ubuntu"
+}
+
+variable "ssh_password" {
+  type        = string
+  description = "Mot de passe SSH par défaut"
+  default     = "changeme"
+  sensitive   = true
+}
+
 variable "ssh_public_key" {
   type        = string
-  description = "Clé publique SSH déposée dans authorized_keys de l'image Ubuntu"
+  description = "Clé publique SSH déposée dans authorized_keys"
   default     = ""
 }

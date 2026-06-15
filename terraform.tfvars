@@ -10,3 +10,7 @@ instances = {
     mem_max = 512
   }
 }
+
+# Étape 7 — identifiants SSH par défaut.
+ssh_user     = "ubuntu"
+ssh_password = "ChangeMe!2026"
